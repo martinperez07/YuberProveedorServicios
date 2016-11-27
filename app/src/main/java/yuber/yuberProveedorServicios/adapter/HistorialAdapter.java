@@ -53,23 +53,27 @@ public class HistorialAdapter extends RecyclerView.Adapter<HistorialAdapter.MyVi
         return vh;
     }
 
-
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Historial historial = historialList.get(position);
-
-        String[] splitDir = historial.getDireccionOrigen().split(" ");
-        String numero = splitDir[splitDir.length - 1];
-        String calle = splitDir[splitDir.length - 2];
-        String Direccion = calle + " " + numero;
+        String Direccion = "";
+        try {
+            String[] splitDir = historial.getDireccionDestino().split(" ");
+            String numero = splitDir[splitDir.length - 1];
+            String calle = splitDir[splitDir.length - 2];
+            Direccion = calle + " " + numero;
+        }catch (Exception e){
+            Direccion = historial.getDireccionDestino();
+        }
 
         titulo = "Destino: " + Direccion;
         subTitulo = "Distancia: " + historial.getDistancia() + "Km   Costo: $" + historial.getCosto();
         fecha = historial.getFecha();
+        String[] fechaSplit = fecha.split(" ");
 
         holder.titulo.setText(titulo);
         holder.subtitulo.setText(subTitulo);
-        holder.año.setText(fecha);
+        holder.año.setText(fechaSplit[0]);
     }
 
     @Override

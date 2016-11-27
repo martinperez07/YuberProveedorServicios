@@ -158,8 +158,6 @@ public class MpFragment extends Fragment implements OnMapReadyCallback, GoogleAp
             }
         }
 
-        //PARA LA CREACION DE RUTAS
-        // Initializing array
         markerPoints = new ArrayList<LatLng>();
         return v;
     }

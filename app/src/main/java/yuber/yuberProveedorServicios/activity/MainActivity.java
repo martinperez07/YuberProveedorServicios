@@ -93,20 +93,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
         displayView(0);
 
-        /*
-        SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_MULTI_PROCESS);
-        String estado = sharedpreferences.getString(EstadoDelViaje, "");
-        if (estado.contains("sinCal")) {
-            Bundle args = new Bundle();
-            FragmentDialogYuberCalificar newFragmentDialog = new FragmentDialogYuberCalificar();
-            newFragmentDialog.setArguments(args);
-            newFragmentDialog.show(getSupportFragmentManager(), "TAG");
-
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putString(EstadoDelViaje, "fin");
-            editor.commit();
-        }*/
-
     }
 
     public List<Historial> getListaHistorial() {
@@ -165,7 +151,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     private void cargar(boolean ok, String ListaConDatos){
         //Datos que se consumen del JSON
-        System.out.println("-------" + ListaConDatos);
         String Comentario;
         String Puntaje;
         String Costo;

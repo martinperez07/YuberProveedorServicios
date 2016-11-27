@@ -97,6 +97,8 @@ public class FragmentDialogYuberCalificar extends DialogFragment {
                     }
                 }
         );
+        mainActivity = (MainActivity)getActivity();
+
         return builder.create();
     }
 
@@ -129,8 +131,8 @@ public class FragmentDialogYuberCalificar extends DialogFragment {
                     Double latD = ubicacion.getDouble("latitud");
                     Double lonD = ubicacion.getDouble("longitud");
 
-                    String dirO = getAddressFromLatLng(latO, lonO);
-                    String dirD = getAddressFromLatLng(latD, lonD);
+                    String dirO = "-"; //getAddressFromLatLng(latO, lonO);
+                    String dirD = "-"; //getAddressFromLatLng(latD, lonD);
 
                     Historial hst = new Historial("Sin comentario", puntaje, costo, dist, dirO, dirD, fecha);
 
@@ -169,9 +171,7 @@ public class FragmentDialogYuberCalificar extends DialogFragment {
         int punt = new Float(number).intValue();
         String puntaje = String.valueOf(number);
         punta = puntaje;
-
         String url = "http://" + Ip + ":" + Puerto + "/YuberWEB/rest/Cliente/PuntuarCliente/" + punt + ",Sin comentario," + instanciaID;
-
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(null, url, new AsyncHttpResponseHandler(){
             @Override

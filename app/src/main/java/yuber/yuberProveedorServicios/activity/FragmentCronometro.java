@@ -68,12 +68,18 @@ public class FragmentCronometro extends Fragment {
                 //Se llama a comenzar viaje
                 SharedPreferences sharedpreferences = getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_MULTI_PROCESS);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString(EstadoDelViaje, "sinCal");
+                editor.putString(EstadoDelViaje, "fin");
                 editor.commit();
 
                 timeWhenStopped = tiempo.getBase() - SystemClock.elapsedRealtime();
                 tiempo.stop();
                 finalizarServicio(timeWhenStopped / 1000);
+
+                Bundle args = new Bundle();
+                FragmentDialogYuberCalificar newFragmentDialog = new FragmentDialogYuberCalificar();
+                newFragmentDialog.setArguments(args);
+                newFragmentDialog.show(getActivity().getSupportFragmentManager(), "TAG");
+
                 MainActivity m = (MainActivity)getActivity();
                 m.displayView(0);
             }

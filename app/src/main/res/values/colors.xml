@@ -8,19 +8,33 @@
 
 
     <!--         MATERIAL DESIGN BY GOOGLE
-      https://material.google.com/style/color.html#color-color-palette    -->
+      https://material.google.com/style/color.html#color-color-palette
+
+
+       ICONOS PARA EL MAPA
+       https://mapicons.mapsmarker.com/category/markers/transportation/?custom_color=607d8b&style=default
+
+       -->
 
 
 
     <!--         MATERIAL DESIGN BY
       http://www.androidhive.info/2015/04/android-getting-started-with-material-design/    -->
-    <color name="colorPrimary">#3f51b5</color>        // 500  Blue Grey
-    <color name="colorPrimaryDark">#303f9f</color>    // 700  Blue Grey
+    <!--
+     COLORES INICIALES
+    <color name="colorPrimary">#607d8b</color>        // 500  Blue Grey
+    <color name="colorPrimaryDark">#455a64</color>    // 700  Blue Grey
     <color name="textColorPrimary">#FFFFFF</color>    // Blanco. Manejar opacity para distintas letras
-    <color name="windowBackground">#e8eaf6</color>    // 50  Blue Grey
-    <color name="navigationBarColor">#303f9f</color>  // 700  Blue Grey esta bien?
-    <color name="colorAccent">#ff6e40</color>         // A200 Deep Orange
-
+    <color name="windowBackground">#eceff1</color>    // 50  Blue Grey
+    <color name="navigationBarColor">#455a64</color>  // 700  Blue Grey esta bien?
+    -->
+    <color name="colorPrimary">#f44336</color>        // 500
+    <color name="colorPrimaryDark">#d32f2f</color>    // 700
+    <color name="textColorPrimary">#FFFFFF</color>    // Blanco. Manejar opacity para distintas letras
+    <color name="windowBackground">#ffebee</color>    // 50
+    <color name="navigationBarColor">#d32f2f</color>  // 700
+    <color name="colorAccent">#388e3c</color>         // green 700
+    <color name="nombreYapellido">#FFFFFF</color>
 
     <color name="year">#999999</color>
     <color name="title">#222222</color>
@@ -51,5 +65,14 @@
     <color name="primary_dark">#C2185B</color>
     <color name="light">#F8BBD0</color>
 
+
+
+
+    <!--   POSIBLEMENTE HAYA QUE MODIFICARLO!!!!
+    =========================================================
+    ######## SON PARA EL PAGO STRIPE #############
+    -->
+    <color name="spinnerItem">#AAAAAA</color>
+    <color name="editText">#AAAAAA</color>
 
 </resources>

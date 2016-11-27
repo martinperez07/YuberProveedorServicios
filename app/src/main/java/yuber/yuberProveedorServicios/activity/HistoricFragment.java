@@ -88,5 +88,4 @@ public class HistoricFragment extends Fragment {
         newFragmentDialog.show(getActivity().getSupportFragmentManager(), "TAG");
     }
 
-
 }
