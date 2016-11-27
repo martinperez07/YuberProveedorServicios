@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="yuber.yuberProveedorServicios.activity.MapJornadaActivaFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/fab_margin"
+        android:id="@+id/bottomLayoutAskingForYuber">
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jornada activa "
+            android:id="@+id/JornadaActiva"
+            android:layout_gravity="center"
+            android:enabled="true"
+            android:checked="false"
+            android:textColor="#DF000000" />
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/y"
+            android:elevation="@dimen/abc_action_bar_subtitle_top_margin_material"
+            android:showDividers="middle|beginning|end"
+            android:gravity="center_vertical">
+        </TableLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

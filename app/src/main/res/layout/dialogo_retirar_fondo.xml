@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:paddingTop="4dp"
+    android:paddingBottom="6dp">
+
+    <LinearLayout
+        android:id="@+id/layout_vertical_dialogo_cancelar_viaje"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/dialog_body"
+        android:layout_marginRight="@dimen/dialog_body"
+        android:paddingBottom="@dimen/normal_padding"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/text_titulo_retirar_fondo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:paddingBottom="@dimen/padding_between"
+            android:paddingTop="@dimen/padding_between"
+            android:text="Retiro de fondos"
+            android:textColor="@color/textColorPrimaryBlack"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/text_dialog_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:paddingBottom="@dimen/padding_between"
+            android:paddingTop="@dimen/padding_between"
+            android:text="----"
+            android:textColor="@color/textColorPrimaryBlack"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_below="@+id/layout_vertical_dialogo_cancelar_viaje"
+        android:gravity="center_vertical|right"
+        android:layout_marginBottom="2dp">
+
+        <Button
+            android:id="@+id/boton_cancelar_yuber"
+            android:text="CANCELAR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_marginRight="@dimen/normal_padding"/>
+
+        <Button
+            android:id="@+id/boton_aceptar_yuber"
+            android:text="ACEPTAR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="0dp" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,98 @@
+<resources>
+    <string name="app_name">Yuber</string>
+    <string name="bienvenidos_a_yuber_si_es_tu_primera_vez_por_favor_ve_a_registrarse_de_lo_contrario_selecciona_login">Bienvenidos a Yuber! Si es tu primera vez por favor ve a registrarse, de lo contrario selecciona login</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="login">Login</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_maps">Map</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- Strings related to API maps -->
+    <string name="callYuber">SOLICITAR YUBER</string>
+
+
+    <!-- Strings related to API maps
+    //AIzaSyCy-GlLSos7wQtr70CRqIPjjQShABKetGw
+    <string name="google_api_key" templateMergeStrategy="preserve" translatable="false"> AIzaSyCy-GlLSos7wQtr70CRqIPjjQShABKetGw </string>
+
+    -->
+
+
+    <!-- ################################### -->
+    <!--   Strings related MATERIAL DESIGN   -->
+
+    <string name="action_settings">Configuración</string>
+    <string name="action_search">Search</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <string name="nav_item_mapa">Mapa</string>
+    <string name="nav_item_historic">Historial</string>
+    <string name="nav_item_Retirar">Retirar fondos</string>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_mapa</item>
+        <item>@string/nav_item_historic</item>
+        <item>@string/nav_item_Retirar</item>
+    </string-array>
+
+    <string name="title_map">Mapa</string>
+    <string name="title_historic_viaje">Historial</string>
+
+    <!-- ################################### -->
+    <!-- Strings relativos a los dialogos. Seguro hay varios de mas -->
+    <string name="title">Título</string>
+
+    <string name="action_save">Guardar</string>
+    <string name="title_activity_detail">Nueva Oportunidad</string>
+
+    <!-- Strings de diálogo personalizado -->
+    <string name="info_text">Su viaje ha terminado. Califique a su YUBER</string>
+    <string name="crear_boton">CREAR CUENTA</string>
+    <string name="nombre_input">Nombre</string>
+    <string name="contrasena_input">Constraseña</string>
+    <string name="recordar_check">Recordarme</string>
+    <string name="olvidar_text">¿Olvidaste tu Contraseña?</string>
+    <string name="entrar_boton">ENTRAR</string>
+    <string name="cliente_label">Cliente</string>
+    <string name="producto_label">Producto</string>
+    <string name="fecha_label">Fecha</string>
+    <string name="prioridad_label">Prioridad</string>
+    <string name="notas_label">Notas</string>
+    <string name="notas_hint">Notas</string>
+    <string-array name="clientes">
+        <item>Fernando Jimenez</item>
+        <item>Carlos Fuentes</item>
+        <item>Pedro Lopez</item>
+    </string-array>
+    <string-array name="productos">
+        <item>Seguro A</item>
+        <item>Seguro B</item>
+        <item>Seguro C</item>
+    </string-array>
+    <string-array name="prioridades">
+        <item>Alta</item>
+        <item>Media</item>
+        <item>Baja</item>
+    </string-array>
+
+    <string name="validationErrors">Validation Errors</string>
+
+</resources>

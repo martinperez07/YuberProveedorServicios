@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:paddingTop="4dp"
+    android:paddingBottom="5dp">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_below="@+id/layout_vertical_dialogo_historial"
+        android:gravity="center_vertical|right"
+        android:layout_marginBottom="2dp">
+
+        <Button
+            android:id="@+id/boton_confirmar"
+            android:text="CONFIRMAR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="0dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_vertical_dialogo_historial"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingBottom="@dimen/normal_padding"
+        android:weightSum="2"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/text_titulo_calificacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:paddingBottom="@dimen/padding_between"
+            android:paddingTop="@dimen/padding_between"
+            android:text="Califica a"
+            android:textColor="@color/textColorPrimaryBlack"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+        <RatingBar
+            android:id="@+id/ratingBarDialogHistorial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:clickable="false"
+            android:stepSize="1"
+            />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

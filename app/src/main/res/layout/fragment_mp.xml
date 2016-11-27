@@ -1,0 +1,66 @@
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/MyMaterialTheme">
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:id="@+id/FlashBarLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_margin="@dimen/fab_margin"
+        android:elevation="2dp"
+        android:background="#FFFFFF">
+
+        <FrameLayout
+            android:id="@+id/container_map_options"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp" />
+
+    </FrameLayout>
+
+
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancelar viaje"
+            android:id="@+id/CancelarViaje"
+            android:layout_gravity="bottom"
+            android:layout_margin="@dimen/fab_margin"
+            android:visibility="gone"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Iniciar viaje"
+            android:id="@+id/IniciarViaje"
+            android:layout_gravity="bottom"
+            android:layout_margin="@dimen/fab_margin"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finalizar viaje"
+        android:id="@+id/FinViaje"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_margin="@dimen/fab_margin"
+        android:visibility="gone"/>
+
+</FrameLayout>
