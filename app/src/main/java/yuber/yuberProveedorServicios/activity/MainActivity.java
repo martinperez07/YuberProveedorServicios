@@ -178,7 +178,12 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                     //datos2 tiene los datos de la instanciaServicio
                     datos2 = new JSONObject(instanciaServicioJSON);
                     Costo = (String) datos2.getString("instanciaServicioCosto");
-                    Tiempo = (String) datos2.getString("instanciaServicioTiempo");
+
+                    Tiempo = (String) datos2.getString("instanciaServicioDistancia");
+                    float flo = Float.valueOf(Tiempo);
+                    flo = flo * 1000;
+                    int time = (int) flo;
+
                     Fecha = (String) datos2.getString("instanciaServicioFechaInicio");
 
                     Long longFecha = Long.parseLong(Fecha);
@@ -214,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                         dirD = getAddressFromLatLng(lat, lon);
                     }
                     //Agrego a la lista
-                    historial = new Historial(Comentario, Puntaje, Costo, Tiempo, dirO, dirD, Fecha);
+                    historial = new Historial(Comentario, Puntaje, Costo, obtenerTiempo(time), dirO, dirD, Fecha);
                     ListaHistorial.add(historial);
                 }
             } catch (Exception e) {
@@ -223,6 +228,35 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         }else{
             ListaHistorial = new ArrayList<Historial>();
         }
+    }
+
+    public String obtenerTiempo(int tiempo){
+        String horas = "00";
+        String minutos = "00";
+        String segundos = "00";
+        int resto = tiempo;
+
+        int h = resto / (24*60);
+        resto = resto % (24*60);
+        horas = String.valueOf(h);
+        if(h < 10) {
+            horas = "0" + horas;
+        }
+
+        int m = resto / (60);
+        resto = resto % (24*60);
+        minutos = String.valueOf(m);
+        if(m < 10) {
+            minutos = "0" + minutos;
+        }
+
+        int s = resto;
+        segundos = String.valueOf(s);
+        if(s < 10) {
+            segundos = "0" + segundos;
+        }
+
+        return (horas + ":" + minutos + ":" + segundos);
     }
 
     private String getAddressFromLatLng(double lat, double lon) {

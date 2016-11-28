@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -97,7 +96,7 @@ public class FragmentDialogYuberCalificar extends DialogFragment {
                         editor.putString(EnViaje, "false");
                         editor.commit();
                         //Envio el puntaje al servidor
-                        finalizarServicio();
+                        enviarPuntaje();
                         dismiss();
                     }
                 }
@@ -221,35 +220,6 @@ public class FragmentDialogYuberCalificar extends DialogFragment {
         });
     }
 
-    public void finalizarServicio(){
-        float f = Float.valueOf(tiempoFinal);
-        if(f < 0){
-            f = f*-1;
-        }
-        int tiempo = (int) f;
-        String t = String.valueOf(tiempo);
-        String url = "http://" + Ip + ":" + Puerto + "/YuberWEB/rest/Proveedor/FinServicio/" + instanciaID + "," + t;
-        System.out.println("---"+url);
-
-
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.get(null, url, new AsyncHttpResponseHandler(){
-            @Override
-            public void onSuccess(String response) {
-                enviarPuntaje();
-            }
-            @Override
-            public void onFailure(int statusCode, Throwable error, String content){
-                if(statusCode == 404){
-                    Toast.makeText(getActivity().getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
-                }else if(statusCode == 500){
-                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(getActivity().getApplicationContext(), "Unexpected Error occured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-    }
 }
 
 
