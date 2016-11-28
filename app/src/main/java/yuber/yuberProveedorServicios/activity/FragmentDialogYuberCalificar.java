@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -31,8 +32,9 @@ public class FragmentDialogYuberCalificar extends DialogFragment {
 
     private String Ip = "54.203.12.195";
     private String Puerto = "8080";
-    private String idInstance;
+    private String instanciaID;
     private String punta;
+    private String tiempoFinal;
     MainActivity mainActivity;
 
     private static final String TAG = FragmentDialogYuberCancelaronViaje.class.getSimpleName();
@@ -43,6 +45,7 @@ public class FragmentDialogYuberCalificar extends DialogFragment {
     public static final String ClienteNombreKey = "clienteNombreKey";
     public static final String ClienteApellidoKey = "clienteApellidoKey";
     public static final String ClienteUbicacionOrigenKey = "ubicacionOrigenKey";
+    public static final String TiempoFinal = "tiempoFinal";
     public static final String ClienteTelefonoKey = "clienteTelefonoKey";
     public static final String ClienteUbicacionDestinoKey = "ubicacionDestinoKey";
     public static final String EnViaje = "enViaje";
@@ -68,6 +71,8 @@ public class FragmentDialogYuberCalificar extends DialogFragment {
         SharedPreferences sharedpreferences = getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_MULTI_PROCESS);
         String Nombre = sharedpreferences.getString(ClienteNombreKey, "");
         String Apellido = sharedpreferences.getString(ClienteApellidoKey, "");
+        tiempoFinal = sharedpreferences.getString(TiempoFinal, "");
+        instanciaID = sharedpreferences.getString(ClienteInstanciaServicioKey, "");
 
         TextView texto = (TextView) v.findViewById(R.id.text_titulo_calificacion);
         texto.setText("Califica a " + Nombre + " " + Apellido);
@@ -92,7 +97,7 @@ public class FragmentDialogYuberCalificar extends DialogFragment {
                         editor.putString(EnViaje, "false");
                         editor.commit();
                         //Envio el puntaje al servidor
-                        enviarPuntaje();
+                        finalizarServicio();
                         dismiss();
                     }
                 }
@@ -103,20 +108,20 @@ public class FragmentDialogYuberCalificar extends DialogFragment {
     }
 
     public void agregoALista(){
-        //String instanciaID = sharedpreferences.getString(ClienteInstanciaServicioKey, "");
-        System.out.print("--->Entre a  agregar a lista" + idInstance);
-        String url = "http://" + Ip + ":" + Puerto + "/YuberWEB/rest/Servicios/ObtenerInstanciaServicio/" + idInstance;
+        String url = "http://" + Ip + ":" + Puerto + "/YuberWEB/rest/Servicios/ObtenerInstanciaServicio/" + instanciaID;
+       System.out.println("---"+url);
+
+
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(null, url, new AsyncHttpResponseHandler(){
             @Override
             public void onSuccess(String response) {
                 try {
                     JSONObject json = new JSONObject(response);
-                    JSONObject ubicacionDestino = new JSONObject(json.getString("ubicacionDestino"));
                     JSONObject ubicacion = new JSONObject(json.getString("ubicacion"));
+
                     String costo = json.getString("instanciaServicioCosto");
                     String puntaje = punta;
-
                     String fecha  = json.getString("instanciaServicioFechaInicio");
                     Long longFecha = Long.parseLong(fecha);
                     final Calendar cal = Calendar.getInstance();
@@ -124,17 +129,22 @@ public class FragmentDialogYuberCalificar extends DialogFragment {
                     final SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
                     fecha = f.format(cal.getTime());
 
-                    String dist = json.getString("instanciaServicioDistancia");
+                    float x = Float.valueOf(json.getString("instanciaServicioDistancia"));
+                    if (x < 0){
+                        x = x*-1;
+                    }
+                    x = x * 1000;
+                    int t = (int) x;
+                    String tiempo = obtenerTiempo(t);
 
                     Double latO = ubicacion.getDouble("latitud");
                     Double lonO = ubicacion.getDouble("longitud");
-                    Double latD = ubicacion.getDouble("latitud");
-                    Double lonD = ubicacion.getDouble("longitud");
+                    String dirO = getAddressFromLatLng(latO, lonO);
 
-                    String dirO = "-"; //getAddressFromLatLng(latO, lonO);
-                    String dirD = "-"; //getAddressFromLatLng(latD, lonD);
+                    Historial hst = new Historial("Sin comentario", puntaje, costo, tiempo, dirO, "-", fecha);
+                    System.out.println("-----"+hst.toString());
 
-                    Historial hst = new Historial("Sin comentario", puntaje, costo, dist, dirO, dirD, fecha);
+                    System.out.println(hst);
 
                     mainActivity.agregarEnHistorial(hst);
                 } catch (JSONException e) {
@@ -144,6 +154,35 @@ public class FragmentDialogYuberCalificar extends DialogFragment {
             public void onFailure(int statusCode, Throwable error, String content){
             }
         });
+    }
+
+    public String obtenerTiempo(int tiempo){
+        String horas = "00";
+        String minutos = "00";
+        String segundos = "00";
+        int resto = tiempo;
+
+        int h = resto / (24*60);
+        resto = resto % (24*60);
+        horas = String.valueOf(h);
+        if(h < 10) {
+            horas = "0" + horas;
+        }
+
+        int m = resto / (60);
+        resto = resto % (24*60);
+        minutos = String.valueOf(m);
+        if(m < 10) {
+            minutos = "0" + minutos;
+        }
+
+        int s = resto;
+        segundos = String.valueOf(s);
+        if(s < 10) {
+            segundos = "0" + segundos;
+        }
+
+        return (horas + ":" + minutos + ":" + segundos);
     }
 
     private String getAddressFromLatLng(double lat, double lon) {
@@ -164,14 +203,12 @@ public class FragmentDialogYuberCalificar extends DialogFragment {
     }
 
     public void enviarPuntaje(){
-        SharedPreferences sharedpreferences = getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_MULTI_PROCESS);
-        String instanciaID = sharedpreferences.getString(ClienteInstanciaServicioKey, "");
-        idInstance = instanciaID;
         float number = ratingBarPuntaje.getRating();
-        int punt = new Float(number).intValue();
-        String puntaje = String.valueOf(number);
-        punta = puntaje;
-        String url = "http://" + Ip + ":" + Puerto + "/YuberWEB/rest/Cliente/PuntuarCliente/" + punt + ",Sin comentario," + instanciaID;
+        int p = (int) number;
+        punta = String.valueOf(p);
+        String url = "http://" + Ip + ":" + Puerto + "/YuberWEB/rest/Cliente/PuntuarCliente/" + punta + ",Sin comentario," + instanciaID;
+        System.out.println("---"+url);
+
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(null, url, new AsyncHttpResponseHandler(){
             @Override
@@ -184,6 +221,35 @@ public class FragmentDialogYuberCalificar extends DialogFragment {
         });
     }
 
+    public void finalizarServicio(){
+        float f = Float.valueOf(tiempoFinal);
+        if(f < 0){
+            f = f*-1;
+        }
+        int tiempo = (int) f;
+        String t = String.valueOf(tiempo);
+        String url = "http://" + Ip + ":" + Puerto + "/YuberWEB/rest/Proveedor/FinServicio/" + instanciaID + "," + t;
+        System.out.println("---"+url);
+
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(null, url, new AsyncHttpResponseHandler(){
+            @Override
+            public void onSuccess(String response) {
+                enviarPuntaje();
+            }
+            @Override
+            public void onFailure(int statusCode, Throwable error, String content){
+                if(statusCode == 404){
+                    Toast.makeText(getActivity().getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                }else if(statusCode == 500){
+                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(getActivity().getApplicationContext(), "Unexpected Error occured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
 }
 
 

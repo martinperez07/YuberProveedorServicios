@@ -48,7 +48,7 @@ public class FragmentDialogYuberCancelaronViaje extends DialogFragment {
         String Apellido = sharedpreferences.getString(ClienteApellidoKey, "");
         String Telefono = sharedpreferences.getString(ClienteTelefonoKey, "");
 
-        texto.setText(Nombre + " " + Apellido + " cancelo el viaje");
+        texto.setText(Nombre + " " + Apellido + " cancelo el servicio");
 
         //Seteo la variable global
         sharedpreferences = getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_MULTI_PROCESS);

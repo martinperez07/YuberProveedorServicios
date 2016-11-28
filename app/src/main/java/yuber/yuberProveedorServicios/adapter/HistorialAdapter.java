@@ -3,6 +3,7 @@ package yuber.yuberProveedorServicios.adapter;
 /**
  * Created by Agustin on 28-Oct-16.
  */
+
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,17 +59,28 @@ public class HistorialAdapter extends RecyclerView.Adapter<HistorialAdapter.MyVi
         Historial historial = historialList.get(position);
         String Direccion = "";
         try {
-            String[] splitDir = historial.getDireccionDestino().split(" ");
+            String[] splitDir = historial.getDireccionOrigen().split(" ");
             String numero = splitDir[splitDir.length - 1];
             String calle = splitDir[splitDir.length - 2];
             Direccion = calle + " " + numero;
         }catch (Exception e){
-            Direccion = historial.getDireccionDestino();
+            Direccion = historial.getDireccionOrigen();
+        }
+        fecha = historial.getFecha();
+
+        String tiempo = historial.getDistancia();
+        try {
+            float x = Float.valueOf(tiempo);
+            if (x < 0) {
+                x = x * -1;
+            }
+            int t = (int) x;
+            tiempo = obtenerTiempo(t);
+        }catch (Exception e){
         }
 
-        titulo = "Destino: " + Direccion;
-        subTitulo = "Distancia: " + historial.getDistancia() + "Km   Costo: $" + historial.getCosto();
-        fecha = historial.getFecha();
+        titulo = "Ubicación: " + Direccion;
+        subTitulo = "Tiempo: " + tiempo + "   Costo: $" + historial.getCosto();
         String[] fechaSplit = fecha.split(" ");
 
         holder.titulo.setText(titulo);
@@ -79,6 +91,35 @@ public class HistorialAdapter extends RecyclerView.Adapter<HistorialAdapter.MyVi
     @Override
     public int getItemCount() {
         return historialList.size();
+    }
+
+    public String obtenerTiempo(int tiempo){
+        String horas = "00";
+        String minutos = "00";
+        String segundos = "00";
+        int resto = tiempo;
+
+        int h = resto / (24*60);
+        resto = resto % (24*60);
+        horas = String.valueOf(h);
+        if(h < 10) {
+            horas = "0" + horas;
+        }
+
+        int m = resto / (60);
+        resto = resto % (24*60);
+        minutos = String.valueOf(m);
+        if(m < 10) {
+            minutos = "0" + minutos;
+        }
+
+        int s = resto;
+        segundos = String.valueOf(s);
+        if(s < 10) {
+            segundos = "0" + segundos;
+        }
+
+        return (horas + ":" + minutos + ":" + segundos);
     }
 
 }

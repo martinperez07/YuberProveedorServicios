@@ -195,10 +195,37 @@ public class MpFragment extends Fragment implements OnMapReadyCallback, GoogleAp
         View.OnClickListener clickListtener = new View.OnClickListener() {
             public void onClick(View v) {
                 //Cambio de botones
+                cancelarViaje();
                 ocultarBotones();
             }
         };
         return clickListtener;
+    }
+
+    public void cancelarViaje(){
+        borrarRutaYMarcadores();
+        String instanciaID = sharedpreferences.getString(ClienteInstanciaServicioKey, "");
+        String url = "http://" + Ip + ":" + Puerto + "/YuberWEB/rest/Proveedor/CancelarServicio/" + instanciaID;
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(null, url, new AsyncHttpResponseHandler(){
+            @Override
+            public void onSuccess(String response) {
+                sharedpreferences = getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_MULTI_PROCESS);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString(EnViaje, "false");
+                editor.commit();
+            }
+            @Override
+            public void onFailure(int statusCode, Throwable error, String content){
+                if(statusCode == 404){
+                    Toast.makeText(getActivity().getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                }else if(statusCode == 500){
+                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(getActivity().getApplicationContext(), "Unexpected Error occured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     private void borrarRutaYMarcadores() {
@@ -490,14 +517,6 @@ public class MpFragment extends Fragment implements OnMapReadyCallback, GoogleAp
         Bundle args = new Bundle();
         FragmentDialogYuberCancelaronViaje newFragmentDialog = new FragmentDialogYuberCancelaronViaje();
         newFragmentDialog.setArguments(args);
-        newFragmentDialog.show(getActivity().getSupportFragmentManager(), "TAG");
-    }
-
-    private void mostrarDialCalificacion(){
-        Bundle args = new Bundle();
-        FragmentDialogYuberCalificar newFragmentDialog = new FragmentDialogYuberCalificar();
-        newFragmentDialog.setArguments(args);
-        newFragmentDialog.setCancelable(false);
         newFragmentDialog.show(getActivity().getSupportFragmentManager(), "TAG");
     }
 

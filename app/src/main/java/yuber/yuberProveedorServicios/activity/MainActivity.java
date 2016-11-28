@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         String Comentario;
         String Puntaje;
         String Costo;
-        String Distancia;
+        String Tiempo;
         String dirO = "-";
         String dirD = "-";
         String Fecha;
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                     //datos2 tiene los datos de la instanciaServicio
                     datos2 = new JSONObject(instanciaServicioJSON);
                     Costo = (String) datos2.getString("instanciaServicioCosto");
-                    Distancia = (String) datos2.getString("instanciaServicioDistancia");
+                    Tiempo = (String) datos2.getString("instanciaServicioTiempo");
                     Fecha = (String) datos2.getString("instanciaServicioFechaInicio");
 
                     Long longFecha = Long.parseLong(Fecha);
@@ -214,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                         dirD = getAddressFromLatLng(lat, lon);
                     }
                     //Agrego a la lista
-                    historial = new Historial(Comentario, Puntaje, Costo, Distancia, dirO, dirD, Fecha);
+                    historial = new Historial(Comentario, Puntaje, Costo, Tiempo, dirO, dirD, Fecha);
                     ListaHistorial.add(historial);
                 }
             } catch (Exception e) {

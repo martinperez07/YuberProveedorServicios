@@ -11,10 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TimePicker;
-import android.widget.Toast;
-
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import yuber.yuberProveedorServicios.R;
 
@@ -25,6 +21,7 @@ public class FragmentCronometro extends Fragment {
     private String Puerto = "8080";
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String EstadoDelViaje = "estadoDelViaje";
+    public static final String TiempoFinal = "tiempoFinal";
     public static final String ClienteInstanciaServicioKey = "clienteInstanciaServicioKey";
 
 
@@ -32,6 +29,7 @@ public class FragmentCronometro extends Fragment {
     private Button pausarReanudar;
     private SharedPreferences sharedpreferences;
     long timeWhenStopped = 0;
+    long tiempoFinal = 0;
     private String instanciaId;
 
     @Override
@@ -66,22 +64,24 @@ public class FragmentCronometro extends Fragment {
         View.OnClickListener clickListtener = new View.OnClickListener() {
             public void onClick(View v) {
                 //Se llama a comenzar viaje
+                timeWhenStopped = tiempo.getBase() - SystemClock.elapsedRealtime();
+                tiempo.stop();
+                tiempoFinal = (timeWhenStopped / 1000);
+
                 SharedPreferences sharedpreferences = getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_MULTI_PROCESS);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString(EstadoDelViaje, "fin");
+                editor.putString(TiempoFinal, Float.toString(tiempoFinal));
                 editor.commit();
 
-                timeWhenStopped = tiempo.getBase() - SystemClock.elapsedRealtime();
-                tiempo.stop();
-                finalizarServicio(timeWhenStopped / 1000);
+                MainActivity m = (MainActivity)getActivity();
+                m.displayView(0);
 
                 Bundle args = new Bundle();
                 FragmentDialogYuberCalificar newFragmentDialog = new FragmentDialogYuberCalificar();
                 newFragmentDialog.setArguments(args);
+                newFragmentDialog.setCancelable(false);
                 newFragmentDialog.show(getActivity().getSupportFragmentManager(), "TAG");
-
-                MainActivity m = (MainActivity)getActivity();
-                m.displayView(0);
             }
         };
         return clickListtener;
@@ -104,27 +104,6 @@ public class FragmentCronometro extends Fragment {
             }
         };
         return clickListtener;
-    }
-
-    public void finalizarServicio(float t){
-        String tiempo = Integer.toString((int) t);
-        String url = "http://" + Ip + ":" + Puerto + "/YuberWEB/rest/Proveedor/FinServicio/" + instanciaId + "," + tiempo;
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.get(null, url, new AsyncHttpResponseHandler(){
-            @Override
-            public void onSuccess(String response) {
-            }
-            @Override
-            public void onFailure(int statusCode, Throwable error, String content){
-                if(statusCode == 404){
-                    Toast.makeText(getActivity().getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
-                }else if(statusCode == 500){
-                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(getActivity().getApplicationContext(), "Unexpected Error occured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
     }
 
 }

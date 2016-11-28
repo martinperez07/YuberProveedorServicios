@@ -1,71 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <TimePicker
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/reloj"
+        android:clickable="false"
+        android:layout_alignParentTop="true"
+        />
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:layout_below="@+id/reloj">
 
-        <TimePicker
+        <TextView
+            android:text="Llevas trabajando:"
+            android:textSize="25dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/reloj"
-            android:clickable="false"
-            />
+            android:id="@+id/texto_tiempo_trabajando" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:paddingTop="60dp"
+        <Chronometer
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:weightSum="1">
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="25dp"
+            android:paddingBottom="8dp"
+            android:id="@+id/chronometer" />
 
-            <TextView
-                android:text="Llevas trabajando:"
-                android:textSize="25dp"
-                android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/texto_tiempo_trabajando" />
-
-            <Chronometer
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textSize="25dp"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                android:id="@+id/chronometer" />
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:paddingBottom="5dp"
-
-                android:layout_height="fill_parent">
-
-
-                <Button
-                    android:text="Pausar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/button_pausar_reanudar"
-                    android:layout_weight="1" />
-
-                <Button
-                    android:text="Finalizar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/button_finalizar_servicio"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-
-        </LinearLayout>
 
     </LinearLayout>
-</LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:layout_alignParentBottom="true">
+
+
+        <Button
+            android:text="Pausar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_pausar_reanudar"
+            android:layout_weight="1" />
+
+        <Button
+            android:text="Finalizar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_finalizar_servicio"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+</RelativeLayout>
