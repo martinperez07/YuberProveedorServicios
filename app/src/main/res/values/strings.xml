@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Yuber</string>
+    <string name="app_name">Yuber Servicios</string>
     <string name="bienvenidos_a_yuber_si_es_tu_primera_vez_por_favor_ve_a_registrarse_de_lo_contrario_selecciona_login">Bienvenidos a Yuber! Si es tu primera vez por favor ve a registrarse, de lo contrario selecciona login</string>
     <string name="registrarse">Registrarse</string>
     <string name="login">Login</string>

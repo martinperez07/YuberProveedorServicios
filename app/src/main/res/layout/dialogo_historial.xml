@@ -112,6 +112,8 @@
             android:gravity="center"
             android:clickable="false"
             android:stepSize="1"
+            android:progressTint="@color/colorAccent"
+            android:secondaryProgressTint="@android:color/transparent"
             />
 
     </LinearLayout>
